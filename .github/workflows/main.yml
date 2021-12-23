@@ -1,0 +1,25 @@
+name: 'Merging Master into Staging'
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  merge:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Merging
+      uses: robotology/gh-action-nightly-merge@v1.3.1
+      with:
+        stable_branch: 'master'
+        development_branch: 'dev'
+        allow_ff: false
+        allow_forks: true
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
